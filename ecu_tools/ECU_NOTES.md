@@ -145,3 +145,15 @@ read/edit/write/recover cycle at ZERO risk before touching the car's tuned ECU.
   Need boot as fallback for high-TPROT. KT200 Auto cheaper but may lack boot.
 - Buy genuine from a reputable seller — clones of both exist and can brick a unit.
 - NOTE: the OpenPort cannot do bench/boot — it's for the OBD write path only.
+
+## KT200 compatibility — CONFIRMED (from ECUHELP official support list)
+- `Audi A3 1.8/2.0l TFSI, Bosch MED17` → **R/W, OBD** (listed).
+- `Audi ALL, Bosch EDC/MED17` → **R/W, BOOT** (fallback, listed).
+- Implication: genuine KT200 can R/W our ECU; OBD read may work (more than
+  PCMFlash Module 65's write-only), with BOOT R/W as the guaranteed fallback for
+  high-TPROT. Practice unit reveals which mode actually works.
+- Caveat: list is generic "MED17", not "MED17.1 TC1796" specifically; TPROT may
+  still force boot. Either way the tool covers it.
+- BUY GENUINE (~$580-880, ECUHELP shop / authorized reseller). The $309 AliExpress
+  "Full" unit is far below genuine pricing = almost certainly a clone (brick risk
+  on writes). Support list applies to genuine hardware only.
