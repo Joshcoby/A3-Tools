@@ -169,3 +169,30 @@ read/edit/write/recover cycle at ZERO risk before touching the car's tuned ECU.
   cannot be the read tool.
 - OpenPort still usable for the OBD WRITE (PCMFlash Module 65) if avoiding pulling
   the ECU for each write — but KT200 writes too, so OpenPort is optional.
+
+## PRIMARY PLAN (budget): Ktag clone + spare CBFA ECM
+Have a SECOND, IDENTICAL CBFA ECM (original, needs a sensor-ground re-solder).
+Same unit = identical firmware incl. P2568/G611 + EVAP + TPROT. Ideal practice/dev
+twin, and it's already being opened (boot-mode access is natural).
+
+### Tool: Ktag clone (~$50-100) — confirmed does MED17.1 TC1796 (bench/boot)
+Verify before buying:
+- Firmware **7.020** (red PCB generation).
+- **MASTER** version (not Slave/token-limited).
+- Ships with a working **Ksuite 2.23 or 2.25**.
+- NEVER update Ksuite online — it kills clone function. Install provided ver, offline.
+- Includes TriCore bench/boot cables for MED17.1.
+Caveats: KTAG is BENCH/BOOT only (NO OBD) → MED17.1 = boot mode = OPEN the ECU.
+Fiddlier than KT200 but ~$250 cheaper. Clone quality varies (validate on spare).
+
+### Workflow
+1. Buy Ktag 7.020 Master clone; get right Ksuite working offline.
+2. Repair + practice on spare CBFA: read it (bonus: genuine OEM CBFA stock file),
+   practice edit/write/recover on IDENTICAL firmware, locate 0x2568 for real.
+3. Then car's tuned ECM: read (backup), edit P2568/EVAP, write back, verify.
+
+### Cost comparison
+- Ktag clone + spare: ~$50-100 (this plan)
+- KT200 clone: ~$309 (easier, solder-free, but clone write risk)
+- Genuine KT200: ~$580-880 (safest, user declined)
+- OpenPort OBD read: NOT viable (confirmed). OpenPort = optional OBD write only.
