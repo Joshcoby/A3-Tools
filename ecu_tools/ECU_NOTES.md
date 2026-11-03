@@ -15,12 +15,23 @@
 | Platform | **Bosch MED17.1** |
 | Microcontroller | Infineon **TC1796** |
 | Bosch number | `0261S06946` |
-| Bosch flashware / SW number | `1037555451` (confirm via VCDS Advanced ID - 1A) |
+| Bosch flashware / SW number | `1037555451` |
+| Hardware part number | `8P0907115AL` (confirmed on ECU — matches firmware listing) |
+| Hardware version | `E3H` |
+| ECU protocol | **`KWP2000 CAN TP2.0`** (NOT UDS) |
+| Software (long) coding | `010301081C070160` |
 | VCDS label file | `06J-907-115-CBF.CLB` |
 
-### Still to confirm (VCDS `Advanced ID - 1A`, next time at car)
-- Exact hardware number + software/ASAM dataset version straight from the ECU
-- Confirms Bosch number `0261S06946` and flashware `1037555451`
+### Identity confirmed
+HW `8P0907115AL` + SW `8P0907115BC` + `0020` is an exact match to the firmware
+listing `0261S06946 / MED17.1 / 1037555451 / PCMFlash`. No ambiguity left.
+
+### Protocol implication (important)
+ECU speaks **KWP2000 CAN TP2.0**, not UDS. For PCMFlash the correct module is
+**Module 65 (VAG MED17/EDC17 CAN TP2.0/K-Line)** — NOT 48 (UDS) and NOT 71 (bench).
+TP2.0 also means an OBD **full read** may be limited (write-only / virtual-read on
+some MED17.1); a guaranteed full read could require bench. Write over OBD works
+(Unitronic flashed this way). READ feasibility over OBD is the open question.
 
 ## Target
 Disable DTC **P2568** — "Sensor for Ozone Reducing Radiator Identification:
