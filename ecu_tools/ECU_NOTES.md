@@ -203,3 +203,15 @@ Fiddlier than KT200 but ~$250 cheaper. Clone quality varies (validate on spare).
 - **Windows caveat:** Ksuite 2.25 supports Windows XP/7/8 — NOT Win10/11 (driver
   signature issues). Plan a dedicated Win7 laptop or a Win7 VM (USB passthrough).
 - Still: never update Ksuite online; bench/boot only (no OBD).
+
+## Ktag clone setup — "External exception EEFFACE" (common, fixable)
+This is THE most common KESS/KTAG clone error — software/driver/environment, not
+a dead tool. Fixes (do these proactively):
+1. Run on **Windows 7** (not 10/11) — error strongly tied to newer Windows.
+2. Clean driver install: uninstall "USB device" in Device Manager → unplug →
+   install bundled **USBDEVICEDRV** driver → replug → run Ksuite with internet OFF.
+3. Add **antivirus/Defender exception** for the Ksuite folder (clones trip AV).
+4. Reseat/clean the internal **SD/TF card** (holds the program).
+5. Keep **offline** always; never update Ksuite online.
+WARNING: do NOT download "fixed" Ksuite ISOs/drivers from file-sharing links
+(malware risk). Use only the seller-provided install media.
