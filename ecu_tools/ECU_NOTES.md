@@ -157,3 +157,15 @@ read/edit/write/recover cycle at ZERO risk before touching the car's tuned ECU.
 - BUY GENUINE (~$580-880, ECUHELP shop / authorized reseller). The $309 AliExpress
   "Full" unit is far below genuine pricing = almost certainly a clone (brick risk
   on writes). Support list applies to genuine hardware only.
+
+## OpenPort OBD read — CONFIRMED NOT VIABLE for this ECU
+- Direct report: genuine OpenPort 2.0 + PCMFlash on a MED17 TP2.0 ECU = read/write
+  buttons GREYED OUT; PCMFlash needs a compatible bench device (Scanmatik) to
+  enable reading. "With OpenPort you cannot." (MHH thread.)
+- Virtual read exists for MED17.1 2.0T in PCMFlash/Autotuner lists BUT: needs a
+  compatible device (not OpenPort per report) + a server-side DB entry for the
+  exact file; murky/unreliable as a backup base for a TUNED car.
+- Conclusion: the full backup READ needs BENCH/BOOT (KT200/FoxFlash). OpenPort
+  cannot be the read tool.
+- OpenPort still usable for the OBD WRITE (PCMFlash Module 65) if avoiding pulling
+  the ECU for each write — but KT200 writes too, so OpenPort is optional.
