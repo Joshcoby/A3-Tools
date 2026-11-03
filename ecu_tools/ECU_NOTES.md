@@ -196,3 +196,10 @@ Fiddlier than KT200 but ~$250 cheaper. Clone quality varies (validate on spare).
 - KT200 clone: ~$309 (easier, solder-free, but clone write risk)
 - Genuine KT200: ~$580-880 (safest, user declined)
 - OpenPort OBD read: NOT viable (confirmed). OpenPort = optional OBD write only.
+
+## Ktag clone — this listing CONFIRMED good combo
+- Hardware V7.020 + Software Ksuite V2.25 = correct pairing (verified on listing).
+- Master version.
+- **Windows caveat:** Ksuite 2.25 supports Windows XP/7/8 — NOT Win10/11 (driver
+  signature issues). Plan a dedicated Win7 laptop or a Win7 VM (USB passthrough).
+- Still: never update Ksuite online; bench/boot only (no OBD).
