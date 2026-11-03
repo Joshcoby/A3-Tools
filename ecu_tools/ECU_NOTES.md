@@ -103,3 +103,45 @@ the cable, (b) does the ECU read over OBD, (c) did Unitronic lock/protect the fi
   - High-entropy noise throughout → actually protected/encrypted.
   - True hardware read-lock → fallback is bench/boot read (bypasses OBD lock).
 - MED17.1 is NOT OEM-encrypted; a clean read is the most likely outcome.
+
+## Practice-first bench plan (spare ECM)
+Have a spare ECM from a 2012 GTI (CCTA). Use it to learn the full bench
+read/edit/write/recover cycle at ZERO risk before touching the car's tuned ECU.
+- **Confirm it's a practice twin:** get the spare's part number + Bosch `0 261 ...`
+  number. A Mk6 Golf 2.0T MED17.1 may share Bosch `0261S06946` with our ECU
+  (the firmware listing paired a Golf MK6 with `0261S06946`). If same
+  MED17.1/TC1796/TP2.0 → identical bench pinout & procedure.
+- **What transfers:** bench wiring, read, edit, write, recovery, tool validation.
+- **What does NOT:** CCTA is non-PZEV, so NO G611/P2568 in its firmware — can't
+  practice that exact DTC; mechanics still transfer. Locate `0x2568` on the real
+  CBFA dump later.
+- **Immo irrelevant for practice** (not starting an engine on the bench). Spare
+  could also sandbox the immo-off procedure later.
+
+### Sequence
+1. Get spare's part/Bosch number → confirm MED17.1/TC1796 match.
+2. Buy bench tool (see below).
+3. Practice full read/edit/write/recover on the spare until confident.
+4. Then pull the car's ECU and do it for real.
+
+## Bench read: connectors first, open only if needed
+- **Bench mode = connect at the ECU harness connectors** (power/ground/CAN/
+  bench-enable per the tool's pinout). NO opening the case. Try this FIRST.
+  Works on many MED17.1/17.1.1.
+- **Boot mode = open the case.** Only if bench fails (updated/high-TPROT units).
+  More invasive + a tool-guided password step. Riskier.
+- Won't know which yours needs until tried (TPROT-dependent).
+- Safety: bench = no solder, careful wiring + correct 12V, reversible. Boot =
+  higher skill, higher brick risk.
+
+## Bench tool: FoxFlash vs KT200
+| | FoxFlash | KT200 |
+|---|---|---|
+| Price | ~$675 (full, all protocols) | Auto ~$535 / Full ~$705+ |
+| Boot mode | included | needs Full version |
+| Offline | native | needs internet / offline dongle |
+| Warranty | 2 yr | 1 yr |
+- **Pick: FoxFlash** — boot included, offline, longer warranty, strong on MED17.
+  Need boot as fallback for high-TPROT. KT200 Auto cheaper but may lack boot.
+- Buy genuine from a reputable seller — clones of both exist and can brick a unit.
+- NOTE: the OpenPort cannot do bench/boot — it's for the OBD write path only.
