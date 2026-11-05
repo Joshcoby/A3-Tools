@@ -215,3 +215,55 @@ a dead tool. Fixes (do these proactively):
 5. Keep **offline** always; never update Ksuite online.
 WARNING: do NOT download "fixed" Ksuite ISOs/drivers from file-sharing links
 (malware risk). Use only the seller-provided install media.
+
+## Open-source alternatives (free, researched 2026-11-05)
+Found via GitHub search after exhausting commercial damos marketplaces (no exact-match
+A2L/damos exists publicly for 8P0907115BC/1037555451 — confirmed via direct internal
+search on AutomaticTuningFiles, ecufix.info, and ecusoft.ru, all zero results).
+
+### ECU-Studio-AI (PCTestAdmin) — https://github.com/PCTestAdmin/ECU-Studio-AI
+- Free, open source, GPL-3.0, Windows, Python 3.10-3.13 (no Python install needed to run).
+- **Finds calibration maps WITHOUT a pre-existing definition** — code-reference analysis
+  (TriCore supported), record-header/axis structure analysis, data-pattern heuristics.
+  Grades each find by evidence type (code/structure/pattern), not invented percentages.
+- Supports importing TunerPro XDF, ASAM A2L/DAMOS (with EPK check), RomRaider XML, CSV
+  if we ever get one.
+- ORI/MOD (stock vs modified) compare, checksum verify/correct, hex/table/heatmap/3D views.
+  Never edits the original file.
+- **IMPORTANT CAVEAT (from their own README):** "Deliberately out of scope: automatic
+  'stage 1' tuning, disabling emission or protection functions, flash approval." The dev
+  has intentionally excluded automated emissions-disable workflows. Still useful as a
+  general structure/map finder — we'd identify + make the actual edit ourselves.
+- Support matrix: docs/ECU_SUPPORT.md (check for MED17.1 specifically before relying on it;
+  measured results shown for EDC17CP09 and Siemens MSD85 in the README, not MED17.1).
+
+### VAGFlasher (dspl1236/osmikejarden) — https://github.com/dspl1236/VAGFlasher
+- Free, open source, MIT license. "No cloud. No subscriptions. No phone-home."
+- Works with existing J2534 cable (OpenPort) or a cheap ESP32 "FunkBridge" dongle.
+- Has real UDS + SA2 seed/key protocol implementation.
+- **Current support table does NOT include MED17.1** (our ECU):
+  - ME17.5 (MED17.5) EA888 Gen1/1.5 CCTA/CCZA — done (Milestone 1)
+  - ME17.5.2 — done (Milestone 1)
+  - EDC17C46/CP44, MED9.1, ME7.x — planned (Milestone 2)
+  - MED17.1 not listed at all, even as a future milestone, as of this check.
+- NOT usable for our ECU yet. Revisit if MED17.1 support is ever added.
+- Mentions a companion "TriCoreTool" (ROM editor, produces .bin) in its toolchain diagram —
+  not yet investigated.
+
+### vag-ecu-re (oscarmcnulty) — reverse-engineering toolkit, VAG TriCore ECUs
+MED17 pack covers an Audi Q5 2.0 TFSI (MED17.1.1 family, close sibling). Built on Ghidra.
+Not yet investigated in depth.
+
+### ghidra-tc1797 (christianobora) — https://github.com/christianobora/ghidra-tc1797
+Ghidra processor definition files for the TC1797 chip, built while reverse-engineering an
+Audi MED17.1.1. Real tooling for doing our own disassembly if it comes to that.
+
+### medc17-checksum-tool (ConnorHowell)
+Free checksum analyzer/corrector for Bosch MED17/EDC17 (CRC32/ADD32/ADD16). Notes a
+"variant dataset block with a table of parameter addresses" structure — may be useful
+reference for understanding MED17's internal data layout.
+
+### Next step
+Pick one to actually try. ECU-Studio-AI is the most directly relevant (map-finding without
+a definition, works on an already-read bin, no ECU-specific support gap like VAGFlasher has)
+— likely starting point once we have a real dump from the KTAG.
